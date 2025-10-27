@@ -1,0 +1,132 @@
+.container {
+    min-height: 100vh;
+    width: 100vw;
+    
+    background-image: radial-gradient(circle, #55B1E6CC, #3521a310), url(./imagemFundo.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #6b5faf1a; /* Fallback caso o gradient falhe */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Estilos para as imagens */
+.logo {
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    height: 257px;
+    width: 263px;
+    z-index: 90;
+}
+
+.esLogo {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 732px;
+    width: 1098px;
+    z-index: 80;
+}
+
+.ODS {
+    position: absolute;
+    top: 20%;
+    left: 35%;
+    height: 630px;
+    width: 630px;
+    z-index: 85;
+}
+
+.menu {
+    position: absolute;
+    top: 35%;
+    left: 0;
+    height: 343px;
+    width: 104px;
+    z-index: 90;
+}
+
+/* Estilos para os ícones */
+.menuIcon {
+    position: absolute;
+    top: 10%;
+    left: 13%;
+    color: white;
+    z-index: 100;
+    cursor: pointer;
+}
+
+.playIcon {
+    position: absolute;
+    top: 10%;
+    right: 14%;
+    transform: translateX(-50%);
+    color: white;
+    z-index: 100;
+    cursor: pointer;
+}
+
+.peopleIcon {
+    position: absolute;
+    top: 10%;
+    right: 11%;
+    color: white;
+    z-index: 100;
+    cursor: pointer;
+}
+
+.notificationIcon {
+    position: absolute;
+    top: 10%;
+    right: 8%;
+    color: white;
+    z-index: 100;
+    cursor: pointer;
+}
+
+.emailIcon {
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    color: white;
+    z-index: 100;
+    cursor: pointer;
+}
+
+/* Estilo para o botão de retorno */
+.returnButton {
+    position: absolute;
+    left: 10px;
+    bottom: 540px;
+    background-color: hsla(204, 39%, 38%, 0);
+    color: #32829600;
+    border: none;
+    padding: 12px 26px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 8px rgba(126, 165, 202, 0.2);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.returnButton:hover {
+    background-color: #289eff00;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(230, 227, 227, 0.25);
+}
+
+.returnButton:active {
+    transform: translateY(0);
+}
+
+.returnIcon {
+    font-size: 1.2rem;
+}

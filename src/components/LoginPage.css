@@ -1,0 +1,242 @@
+/* Estilo do lado esquerdo */
+.login-left {
+  width:180%;
+  background: transparent;
+  display: flex;
+  align-items: flex-start; /* Alinha os itens ao topo */
+  justify-content: flex-start; /* Alinha os itens à esquerda */
+  position: relative; /* Necessário para a logo ser posicionada acima */
+  border: none; /* Remove qualquer borda */
+}
+
+/* Logo posicionada acima de todas as bordas e contêineres */
+.login-logo {
+  position: absolute;
+  top: 20px; /* Ajusta a distância para cima */
+  left: -60px;
+  z-index:1000; /* Garante que a logo fique acima de outros elementos */
+  width:auto;
+  max-height: 50px;
+}
+.login-logo-externo {
+  position: absolute;
+  top: 20px;      /* Movido 10 pixels para cima (de 20 para 10) */
+  left: 300px;    /* Movido 50 pixels para a esquerda (de 20 para -30) */
+  right: auto;
+  width:auto;
+  max-height: 400px;
+  z-index: 1000;
+  /* Outros estilos */
+}
+
+  .login-box {
+    display: flex;
+    flex-direction: column; /* Para organizar os itens verticalmente */
+  align-items: flex-start; /* Para alinhar os itens à esquerda horizontalmente */
+    width:400px; /* Mantenha a mesma largura do .login-container */
+    height: auto; /* Mantenha a mesma altura do .login-container */
+    border-radius:50px; /* Aplica a borda arredondada aqui */
+    overflow: hidden; /* Se você quiser cortar conteúdo que vaze a borda arredondada */
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: 350px; /* Começa totalmente à direita (sem margem) */
+    padding: 20px; /* Adicione algum espaço interno */
+    
+  }
+
+ /* Estilo do contêiner principal */
+.login-container {
+  display: flex;
+  width: 800px; /* Ajuste a largura conforme necessário */
+  height: 500px; /* Ajuste a altura conforme necessário */
+  margin: 250px auto; /* Centraliza o contêiner na página */
+  border-radius: 50px;
+  box-sizing: border-box; /* Inclui a borda no tamanho total */
+  padding:20px; /* Garante que a borda fique "dentro" do contêiner */
+  margin-right: 250px; 
+  
+}
+
+/* Estilo do lado esquerdo (imagem de fundo) */
+.login-left {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: flex-start;
+  padding: 20px; /* Adiciona um pouco de espaço interno */
+  flex: 1; /* Faz com que ocupe uma parte do espaço */
+}
+
+/* Container externo alinhado à direita */
+.right-container {
+  display: flex;
+  justify-content: flex-end; /* Alinha tudo à direita */
+  align-items: center; /* Centraliza verticalmente */
+  padding-right: 50px; /* Espaço da borda direita */
+  flex: 1; /* Faz com que a right-container ocupe o espaço restante */
+}
+
+/* Container centralizado */
+.welcome-container {
+  background-color: #25315a88;
+  overflow: hidden;
+  border-radius:60px; /* Aplica a borda arredondada aqui */
+  box-shadow: '0px 4px 8px' rgba(0, 0, 0, 0.1);
+  border-width: '2px';
+  height: 700px; /* Mantenha a mesma altura do .login-container */
+  width: 382px;
+  text-align: center;
+  margin-top: -90px; /* Move o conteúdo mais para baixo, se necessário */
+  box-sizing: border-box; /* Inclui a borda no tamanho total */
+  margin-right: 250px; /* Começa totalmente à direita (sem margem) */
+  padding: 40px; /* Espaço interno para garantir a borda dentro */
+ 
+ 
+ 
+}
+
+/* Estilo do título */
+.welcome-title {
+  font-size: 25px;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 30px;
+  margin-top: 50px;    /* Adiciona 30 pixels de espaço acima do título */
+  
+}
+
+/* Estilo do subtítulo */
+.welcome-subtitle {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.842);
+  margin-bottom: 50px;
+  margin-top: -10px;
+}
+
+/* Estilo dos campos de entrada */
+.input-group {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid white;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  
+}
+
+.input-group input::placeholder {
+  color: white;
+  opacity: 1; /* Para garantir que não fique transparente */
+}
+
+.input-group input::-ms-input-placeholder {
+  color: white;
+  
+}
+
+
+.input-group .icon {
+  margin-right: 10px;
+  color: white;
+  
+}
+
+.input-group input {
+  background: transparent;
+  border-width: 0;
+  border: 1px #26119DCC;
+  color: white;
+  width:90%;
+  padding: 10px 0;
+  font-size: 13px;
+  overflow: hidden;
+  
+}
+
+/* REMOVER DESTAQUE VISUAL AO FOCAR */
+.input-group input:focus {
+  outline: none;
+}
+
+/* Estilo do botão de login */
+.login-btn {
+  /* ... outros estilos ... */
+}
+
+
+/* Estilo do botão de login */
+.login-btn {
+  background-color: #ffc107;
+  color: black;
+  font-weight: bold;
+  border: 2px solid #ffc107;
+  padding: 11px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-top: 25px;
+  width: 320px;
+}
+
+/* Estilo para o link de "Esqueceu a senha?" */
+.forgot-password {
+  text-align: center;
+  color: white;
+  font-size: 13px;
+  margin-bottom: 20px;
+  cursor: pointer;
+ 
+}
+
+/* Estilo do botão de registrar */
+.cadastro-btn {
+  background-color: #ffc107;
+  color: black;
+  font-weight: bold;
+  border: 2px solid #ffc107;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-top: 15px;
+  width: 320px;
+}
+
+/* Texto para as opções sociais */
+.social-text {
+  text-align: center;
+  color: white;
+  font-size: 13px;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+/* Estilo do ícone do Google */
+.google-icon {
+  font-size: 24px;
+  color: white;
+  display: block;
+  text-align: center;
+  cursor: pointer;
+  width: 320px;
+  
+}
+
+.botaoVoltarTopo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 6px 12px;
+  font-size: 14px;
+  background-color:#26119DCC;
+  color: #0e0d11;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 9999;
+  transition: background-color 0.2s;
+}
+
+.botaoVoltarTopo:hover {
+  background-color: rgb(118, 168, 224);
+}

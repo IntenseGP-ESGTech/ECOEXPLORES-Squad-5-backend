@@ -1,0 +1,155 @@
+.container {
+  position: relative;
+  
+}
+
+.Direita {
+  width: 50%;
+  height: 800px;
+  display: flex;
+  flex-direction: column;
+  background-size: cover;
+  background-position: center;
+}
+
+.logoAluno {
+  position: absolute;
+  top: 1%;
+  left: 16%;
+  height: 327px;
+  width: 335px;
+  z-index: 100;
+}
+
+.mundoAluno {
+ position: absolute;
+  top: 0%;
+  left: 79%;
+  height: 180px;
+  width: 180px;
+  z-index:10000;
+  pointer-events: none; /* opcional, evita interferência em cliques */
+}
+
+
+.img-mundo {
+  width: 12%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 2;
+  margin-left: 9%;
+}
+
+.tabela-cadastro {
+  width: 60%;
+  height: 78%;
+  background-image: radial-gradient(rgba(30, 4, 70, 0.4) 100%);
+  border-radius: 30px;
+  position: relative;
+  z-index: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 50px;
+}
+
+h2 {
+  margin-top: 107px;
+  text-align: center;
+}
+
+p {
+  text-align: center;
+}
+
+.cadastro-form input {
+  display: block;
+  width: 50%;
+  padding: 8px;
+  margin-bottom: 12px;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #333;
+  margin-left: 23%;
+  background-color: #f0f0f0;
+  font-weight: lighter;
+}
+
+label {
+  margin-left: 25%;
+}
+
+.cadastro-form input::placeholder {
+  color: #999;
+}
+
+.botao-continuar {
+  background-color: #ffc400;
+  color: #003300;
+  font-weight: bold;
+  border: none;
+  padding: 10px;
+  border-radius: 20px;
+  width: 70%;
+  margin-top: 10px;
+  margin-left: 15%;
+  cursor: pointer;
+}
+
+.botao-google {
+  background: none;
+  color: white;
+  border: none;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 12px;
+  margin-left: 35%;
+}
+
+body {
+  background-image: radial-gradient(circle, rgba(85, 177, 230, 0.5) 0%, rgba(38, 17, 157, 3.0) 100%), url('/fundo.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 120vh;
+  overflow: hidden;
+}
+
+main {
+  display: flex;
+}
+
+.esquerda {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 800px;
+}
+
+
+.planeta {
+  width: 55%;
+  height: auto;
+  display: flex;
+  margin-left: 24%;
+  margin-top: 0px;
+}
+
+.inputGroup label {
+  color: white;
+  font-size: 14px;
+  display: inline-block;
+  width: 100%;
+  transform: translateX(-70px); /* Move só o texto mais pra esquerda */
+}
+
+.welcomeTitle {
+  margin-top: 50px;
+}

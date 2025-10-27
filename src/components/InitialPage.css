@@ -1,0 +1,51 @@
+/* Estilo do lado esquerdo */
+.inicial-left {
+  width:180%;
+  background: transparent;
+  display: flex;
+  align-items: flex-start; /* Alinha os itens ao topo */
+  justify-content: flex-start; /* Alinha os itens à esquerda */
+  position: relative; /* Necessário para a logo ser posicionada acima */
+  border: none; /* Remove qualquer borda */
+}
+
+/* Logo posicionada acima de todas as bordas e contêineres */
+.inicial-logo {
+  position: absolute;
+  top: 20px; /* Ajusta a distância para cima */
+  left: -60px;
+  z-index:1000; /* Garante que a logo fique acima de outros elementos */
+  width:auto;
+  max-height: 50px;
+}
+.inicial-logo-externo {
+  position: absolute;
+  top: 20px;      /* Movido 10 pixels para cima (de 20 para 10) */
+  left: 300px;    /* Movido 50 pixels para a esquerda (de 20 para -30) */
+  right: auto;
+  width:auto;
+  max-height: 400px;
+  z-index: 1000;
+  /* Outros estilos */
+}
+
+.play-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 8px 16px;
+  font-size: 14px;
+  background-color: #272d86f5;
+  color: rgb(241, 243, 245);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  z-index: 2000;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.play-button:hover {
+  background-color: rgb(118, 168, 224);
+  color: #e9e8ee;
+}

@@ -1,0 +1,125 @@
+/* src/components/PreCadastro.css */
+main {
+  display: flex; /* Para alinhar as seções esquerda e direita lado a lado */
+  height: 100vh; /* Ocupar toda a altura da tela */
+  width: 100vw; /* Ocupar toda a largura da tela */
+  overflow: hidden; /* Para evitar barras de rolagem se o conteúdo interno for maior */
+  
+}
+
+.esquerda {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    width: 50%;
+    height: 800px;
+    
+}
+
+.logoPreCadastro {
+   position: relative;
+  top: 20px; /* Ajusta a distância para cima */
+  left: 250px;
+  z-index:1000; /* Garante que a logo fique acima de outros elementos */
+  width:auto;
+  max-width: 300px;
+  max-height: 300px;
+}
+
+.pessoas {
+    width: 48%;
+    height: auto;
+    display: flex;
+    margin-left: 20%;
+    margin-top: 30px;
+}
+
+
+.direita{
+    width: 50%;
+    height: 850px;
+    display: flex;
+    flex-direction: column;
+  background-size: cover;
+  background-position: center;
+  color: white;
+  }
+
+ .img_mundo {
+    width: 20%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    z-index: 2;
+    margin-top: 40px;
+  margin-left: 3%;
+ }
+
+ .tabelaCategoria {
+    height: 62%;
+    width: 50%;
+    margin-top: 200px;
+    background-image:radial-gradient(  rgba(47, 12, 100, 0.39) 100%);
+    border-radius:30px;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+.tabelaCategoria h2 {
+    margin-top: 170px; 
+}
+
+  .botao-categoria {
+  width: 70%;
+  padding: 10px;
+  background-color: #77d8ff;
+  border: none;
+  border-radius: 20px;
+  font-weight: lighter;
+  color: #000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  transition: background-color 0.3s;
+  font-size: 20px;
+  gap: 10px;
+}
+.botao-categoria:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.circle {
+  font-size: 18px;
+}
+.icone_selecao {
+  width: 10%;
+  height: auto;
+
+}
+
+.botaoVoltarTopo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 6px 12px;
+  font-size: 14px;
+  background-color:#26119DCC;
+  color: #f8f8f8;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 9999;
+  transition: background-color 0.2s;
+}
+
+.botaoVoltarTopo:hover {
+  background-color: rgb(118, 168, 224);
+}
+
