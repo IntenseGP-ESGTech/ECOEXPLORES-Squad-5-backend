@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";  // Adicionando a importação do Link
 import "./LoginPage.css";
 import fundo from "./fundo.jpg";
 import { FaUser, FaLock, FaGooglePlusG } from "react-icons/fa";
+import { apiLogin } from "../api/auth";
 
 
 
@@ -22,6 +23,25 @@ const LoginPage = () => {
     justifyContent: "center",
     margin: "0 auto", /* Centraliza horizontalmente */
     padding: "30px"
+  };
+
+  const [emailOrCpf, setEmailOrCpf] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleLogin = async () => {
+    setError("");
+    setLoading(true);
+    try {
+      // Por ora usamos o campo como email
+      await apiLogin({ email: emailOrCpf, password });
+      navigate('/home');
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -52,14 +72,14 @@ const LoginPage = () => {
 
             <div className="input-group">
               <FaUser className="icon" /> 
-              <input type="text" placeholder="CNPJ / CPF" />
+              <input type="text" placeholder="E-mail" value={emailOrCpf} onChange={(e) => setEmailOrCpf(e.target.value)} />
             </div>
             <div className="input-group">
               <FaLock className="icon" />
-              <input type="password" placeholder="Senha" />
+              <input type="password" placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
-
-            <button className="login-btn" onClick={() => navigate('/home')}>LOG IN</button>
+            {error && <div style={{ color: '#ffdddd', marginBottom: 8 }}>{error}</div>}
+            <button className="login-btn" onClick={handleLogin} disabled={loading}>{loading ? 'Entrando...' : 'LOG IN'}</button>
             <div className="forgot-password">Esqueceu a senha?</div>
              {/* Usando o Link para redirecionar para a tela de PreCadastro */}
             <Link to="/pre-cadastro">

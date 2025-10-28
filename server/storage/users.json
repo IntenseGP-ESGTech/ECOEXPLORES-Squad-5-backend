@@ -1,0 +1,10 @@
+[
+  {
+    "id": "a0f76eda-8c6a-4439-a20f-b1022c1694ab",
+    "name": "Michelangelo",
+    "email": "michelangelorego@hotmail.com",
+    "passwordHash": "$2a$10$1D9ofoJVpza1bcQH.ebfDeFFrKTJcZXx6LZQaWy5EYfbCDBJO9tqy",
+    "createdAt": "2025-10-28T13:34:50.960Z",
+    "updatedAt": "2025-10-28T13:34:50.960Z"
+  }
+]

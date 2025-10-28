@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaGoogle } from 'react-icons/fa';
+import { apiRegister } from '../api/auth';
 
 // Assets
 import logo from '../assets/logo.png';
@@ -19,9 +20,18 @@ export default function CadastroAluno() {
     const [confirmarSenha, setConfirmarSenha] = useState('');
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        navigate('/Home');
+        if (!nome) return alert('Informe seu nome');
+        if (!senha || senha !== confirmarSenha) return alert('Senhas não conferem');
+        // Aqui vamos usar matricula como parte do email fake se não tiver outro campo
+        const email = `${matricula || nome.replace(/\s+/g, '.').toLowerCase()}@aluno.local`;
+        try {
+            await apiRegister({ name: nome, email, password: senha });
+            navigate('/Home');
+        } catch (err) {
+            alert(err.message);
+        }
     };
 
     const handleVoltar = (e) => {

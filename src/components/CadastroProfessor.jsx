@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaGoogle } from 'react-icons/fa';
+import { apiRegister } from '../api/auth';
 
 // Assets
 import logo from '../assets/logo.png';
@@ -34,9 +35,15 @@ export default function CadastroProfessor() {
         setCpf(value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        navigate('/Home');
+        try {
+            // usando email + senha; nome do professor como name
+            await apiRegister({ name: nome || 'Professor', email, password: senha });
+            navigate('/Home');
+        } catch (err) {
+            alert(err.message);
+        }
     };
 
     const handleVoltar = (e) => {
