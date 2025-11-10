@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaGoogle } from 'react-icons/fa';
+import { apiRegister, clearAuth } from '../api/auth';
 
 // Assets
 import logo from '../assets/logo.png';
@@ -35,9 +36,20 @@ export default function CadastroEscola() {
         setCnpj(value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        navigate('/Home');
+        if (!instituicao) return alert('Informe o nome da instituição');
+        if (!email) return alert('Informe o e-mail corporativo');
+        if (!senha) return alert('Informe uma senha');
+        try {
+            await apiRegister({ name: instituicao, email, password: senha });
+            // Limpa o token salvo após o cadastro para forçar login
+            clearAuth();
+            alert('Cadastro realizado com sucesso! Faça login para continuar.');
+            navigate('/login');
+        } catch (err) {
+            alert(err.message);
+        }
     };
 
     const handleVoltar = (e) => {

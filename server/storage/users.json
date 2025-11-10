@@ -6,5 +6,13 @@
     "passwordHash": "$2a$10$1D9ofoJVpza1bcQH.ebfDeFFrKTJcZXx6LZQaWy5EYfbCDBJO9tqy",
     "createdAt": "2025-10-28T13:34:50.960Z",
     "updatedAt": "2025-10-28T13:34:50.960Z"
+  },
+  {
+    "id": "64282748-535e-49cd-bb5f-4cd3f7e656cf",
+    "name": "MICHELANGELO MORAIS DO REGO",
+    "email": "mickeey.m.200@hotmail.com",
+    "passwordHash": "$2a$10$LXVyp/FIOVLjWhV71xqjIu0xQr2Z6ckjf3YbQRThBjUnceLO6r.7u",
+    "createdAt": "2025-11-10T18:46:41.186Z",
+    "updatedAt": "2025-11-10T18:46:41.186Z"
   }
 ]

@@ -107,12 +107,12 @@ app.get('/api/health', (_req, res) => {
 app.post('/api/auth/register', async (req, res) => {
   const { name, email, password } = req.body || {};
   if (!name || !email || !password) {
-    return res.status(400).json({ error: 'name, email and password are required' });
+    return res.status(400).json({ error: 'Nome, email e senha são obrigatórios' });
   }
 
   const existing = await findUserByEmail(email);
   if (existing) {
-    return res.status(409).json({ error: 'Email already registered' });
+    return res.status(409).json({ error: 'Email já cadastrado' });
   }
 
   const passwordHash = await bcrypt.hash(password, 10);
@@ -165,17 +165,17 @@ app.post('/api/auth/register', async (req, res) => {
 app.post('/api/auth/login', async (req, res) => {
   const { email, password } = req.body || {};
   if (!email || !password) {
-    return res.status(400).json({ error: 'email and password are required' });
+    return res.status(400).json({ error: 'Email e senha são obrigatórios' });
   }
 
   const user = await findUserByEmail(email);
   if (!user) {
-    return res.status(401).json({ error: 'Invalid credentials' });
+    return res.status(401).json({ error: 'Email ou senha inválidos' });
   }
 
   const ok = await bcrypt.compare(password, user.passwordHash);
   if (!ok) {
-    return res.status(401).json({ error: 'Invalid credentials' });
+    return res.status(401).json({ error: 'Email ou senha inválidos' });
   }
 
   const token = jwt.sign({ sub: user.id, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
