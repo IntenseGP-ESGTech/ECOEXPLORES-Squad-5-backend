@@ -6,7 +6,8 @@ import jwt from 'jsonwebtoken';
 import { randomUUID } from 'crypto';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
-import { ensureDataDirExists, readUsers, writeUsers, findUserByEmail, toPublicUser } from './utils/storage.js';
+import { pool, ensureDatabase } from './db.js';
+import { toPublicUser } from './utils/storage.js';
 
 dotenv.config();
 
@@ -17,7 +18,61 @@ const JWT_SECRET = process.env.JWT_SECRET || 'dev_secret_change_me';
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 
-ensureDataDirExists();
+function mapDbUser(row) {
+  if (!row) return null;
+  const serializeDate = value => (value instanceof Date ? value.toISOString() : value);
+  return {
+    id: row.id,
+    name: row.name,
+    email: row.email,
+    passwordHash: row.password_hash,
+    createdAt: serializeDate(row.created_at),
+    updatedAt: serializeDate(row.updated_at),
+  };
+}
+
+async function findUserByEmail(email) {
+  const { rows } = await pool.query(
+    `
+      SELECT id, name, email, password_hash, created_at, updated_at
+      FROM users
+      WHERE email = $1
+      LIMIT 1
+    `,
+    [String(email).toLowerCase()],
+  );
+  return mapDbUser(rows[0]);
+}
+
+async function findUserById(id) {
+  const { rows } = await pool.query(
+    `
+      SELECT id, name, email, password_hash, created_at, updated_at
+      FROM users
+      WHERE id = $1
+      LIMIT 1
+    `,
+    [id],
+  );
+  return mapDbUser(rows[0]);
+}
+
+async function createUser({ id, name, email, passwordHash }) {
+  const now = new Date().toISOString();
+  const { rows } = await pool.query(
+    `
+      INSERT INTO users (id, name, email, password_hash, created_at, updated_at)
+      VALUES ($1, $2, $3, $4, $5, $5)
+      RETURNING id, name, email, password_hash, created_at, updated_at
+    `,
+    [id, name, email, passwordHash, now],
+  );
+  return mapDbUser(rows[0]);
+}
+
+async function ensureAppReady() {
+  await ensureDatabase();
+}
 
 // Swagger configuration
 const swaggerOptions = {
@@ -116,17 +171,12 @@ app.post('/api/auth/register', async (req, res) => {
   }
 
   const passwordHash = await bcrypt.hash(password, 10);
-  const users = await readUsers();
-  const newUser = {
+  const newUser = await createUser({
     id: randomUUID(),
     name,
     email: email.toLowerCase(),
     passwordHash,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  };
-  users.push(newUser);
-  await writeUsers(users);
+  });
 
   const token = jwt.sign({ sub: newUser.id, email: newUser.email }, JWT_SECRET, { expiresIn: '7d' });
   res.status(201).json({ user: toPublicUser(newUser), token });
@@ -212,16 +262,23 @@ function authMiddleware(req, res, next) {
  *         description: Usuário não encontrado
  */
 app.get('/api/auth/me', authMiddleware, async (req, res) => {
-  const users = await readUsers();
-  const user = users.find(u => u.id === req.userId);
+  const user = await findUserById(req.userId);
   if (!user) return res.status(404).json({ error: 'User not found' });
   res.json({ user: toPublicUser(user) });
 });
 
-app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`\n✅ Auth server running on http://localhost:${PORT}`);
-  console.log(`📚 Swagger UI available at http://localhost:${PORT}/api-docs\n`);
-});
+ensureAppReady()
+  .then(() => {
+    app.listen(PORT, () => {
+      // eslint-disable-next-line no-console
+      console.log(`\n✅ Auth server running on http://localhost:${PORT}`);
+      console.log(`📚 Swagger UI available at http://localhost:${PORT}/api-docs\n`);
+    });
+  })
+  .catch(error => {
+    // eslint-disable-next-line no-console
+    console.error('❌ Failed to initialize application', error);
+    process.exit(1);
+  });
 
 

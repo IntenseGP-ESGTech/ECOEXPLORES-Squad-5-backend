@@ -14,6 +14,7 @@
     "express": "^4.21.1",
     "fs-extra": "^11.2.0",
     "jsonwebtoken": "^9.0.2",
+    "pg": "^8.13.1",
     "path": "^0.12.7",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -26,6 +27,7 @@
     "dev": "vite",
     "server": "node server/index.js",
     "server:dev": "nodemon --watch server --ext js,json --exec node server/index.js",
+    "migrate:users": "node server/scripts/migrate-users.js",
     "build": "vite build",
     "preview": "vite preview"
   },
