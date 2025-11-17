@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";  // Adicionando a importação do Link
 import "./LoginPage.css";
 import fundo from "./fundo.jpg";
-import { FaUser, FaLock, FaGooglePlusG } from "react-icons/fa";
-import { apiLogin } from "../api/auth";
+import { FaUser, FaLock } from "react-icons/fa";
+import { GoogleLogin } from "@react-oauth/google";
+import { apiLogin, apiGoogleLogin } from "../api/auth";
 
 
 
@@ -28,7 +29,15 @@ const LoginPage = () => {
   const [emailOrCpf, setEmailOrCpf] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      navigate('/home', { replace: true });
+    }
+  }, [navigate]);
 
   const handleLogin = async () => {
     setError("");
@@ -41,6 +50,23 @@ const LoginPage = () => {
       setError(e.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    setError("");
+    if (!credentialResponse?.credential) {
+      setError("Token do Google não retornado.");
+      return;
+    }
+    setGoogleLoading(true);
+    try {
+      await apiGoogleLogin({ credential: credentialResponse.credential });
+      navigate('/home', { replace: true });
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setGoogleLoading(false);
     }
   };
 
@@ -86,7 +112,18 @@ const LoginPage = () => {
               <button className="cadastro-btn">CADASTRE-SE</button>
             </Link>
             <div className="social-text">Faça login com</div>
-            <FaGooglePlusG className="google-icon" />
+            <div className="google-login-wrapper">
+              <GoogleLogin
+                theme="filled_blue"
+                size="large"
+                shape="pill"
+                text="signin_with"
+                onSuccess={handleGoogleSuccess}
+                onError={() => setError("Falha ao autenticar com o Google")}
+                useOneTap
+              />
+            </div>
+            {googleLoading && <div style={{ color: '#fff', marginTop: 8 }}>Autenticando com o Google...</div>}
           </div>
         </div>
 

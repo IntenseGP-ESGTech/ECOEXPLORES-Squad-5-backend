@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { clearAuth } from "../api/auth";
 
 // Icons
 import { ImMenu } from "react-icons/im";
@@ -26,6 +27,11 @@ export default function Home() {
   const handleReturn = () => {
     navigate('/login'); //  redireciona para a tela de login
 };
+
+  const handleLogout = () => {
+    clearAuth();
+    navigate('/login', { replace: true });
+  };
 
     return (
         <div className="container">
@@ -59,15 +65,13 @@ export default function Home() {
             </div>
 
             {/* Return Button */}
-            <div 
-                className="returnButton" 
-                onClick={handleReturn}
-                role="button"
-                aria-label="Return to presentation"
-                tabIndex={0}
-            >
+            <div className="returnButton" onClick={handleReturn} role="button" aria-label="Return to presentation" tabIndex={0}>
                 <IoMdReturnLeft className="returnIcon" />
             </div>
+
+            <button type="button" className="logoutButton" onClick={handleLogout}>
+                Sair
+            </button>
         </div>
     );
 }

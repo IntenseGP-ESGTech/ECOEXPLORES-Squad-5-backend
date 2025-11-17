@@ -212,14 +212,10 @@
 }
 
 /* Estilo do ícone do Google */
-.google-icon {
-  font-size: 24px;
-  color: white;
-  display: block;
-  text-align: center;
-  cursor: pointer;
-  width: 320px;
-  
+.google-login-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
 .botaoVoltarTopo {

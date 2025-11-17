@@ -31,7 +31,7 @@ export async function findUserByEmail(email) {
 
 export function toPublicUser(user) {
   if (!user) return null;
-  const { passwordHash, ...rest } = user;
+  const { passwordHash, providerId, ...rest } = user;
   return rest;
 }
 
