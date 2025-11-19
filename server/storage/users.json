@@ -30,5 +30,37 @@
     "passwordHash": "$2a$10$pR7IVq4zR2VQidjmi.vOye3FXAhY.UWEa75OBYIgwLIw55wDYZXyq",
     "createdAt": "2025-11-05T21:29:36.254Z",
     "updatedAt": "2025-11-05T21:29:36.254Z"
+  },
+  {
+    "id": "64282748-535e-49cd-bb5f-4cd3f7e656cf",
+    "name": "MICHELANGELO MORAIS DO REGO",
+    "email": "mickeey.m.200@hotmail.com",
+    "passwordHash": "$2a$10$LXVyp/FIOVLjWhV71xqjIu0xQr2Z6ckjf3YbQRThBjUnceLO6r.7u",
+    "createdAt": "2025-11-10T18:46:41.186Z",
+    "updatedAt": "2025-11-10T18:46:41.186Z"
+  },
+  {
+    "id": "4cc364e3-ca10-4902-b98e-3bda973596a7",
+    "name": "Michelangelo",
+    "email": "mickey@gmai.com",
+    "passwordHash": "$2a$10$JzBZXn4Zazv8N0QlavSsz.jtUMEX9g.JSJwXxUrGOa81lV3odG.oe",
+    "createdAt": "2025-11-12T18:04:35.450Z",
+    "updatedAt": "2025-11-12T18:04:35.450Z"
+  },
+  {
+    "id": "0fb95ac0-8c8a-4d19-a0fe-264784da68e5",
+    "name": "RhuanPs3",
+    "email": "123456@aluno.local",
+    "passwordHash": "$2a$10$.qWGOk3FHX94OvnJFoed6.XuOzT5BE2yMdEbhqPMqN9OwDrOwRTfi",
+    "createdAt": "2025-11-17T13:16:08.767Z",
+    "updatedAt": "2025-11-17T13:16:08.767Z"
+  },
+  {
+    "id": "8e1856c0-1248-4b10-a9c4-f5dbd747fd06",
+    "name": "RhuanPs3",
+    "email": "rhuanps3@gmail.com",
+    "passwordHash": "$2a$10$te3tq8A/WwTcJ07w4CkJZO9hxVCbIOCt5Dl6sswvWpCFjEL9bpUEy",
+    "createdAt": "2025-11-17T13:16:59.060Z",
+    "updatedAt": "2025-11-17T13:16:59.060Z"
   }
 ]

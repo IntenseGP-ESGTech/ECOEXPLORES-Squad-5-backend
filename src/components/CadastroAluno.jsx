@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaGoogle } from 'react-icons/fa';
-import { apiRegister } from '../api/auth';
+import { apiRegister, clearAuth } from '../api/auth';
 
 // Assets
 import logo from '../assets/logo.png';
@@ -28,7 +28,10 @@ export default function CadastroAluno() {
         const email = `${matricula || nome.replace(/\s+/g, '.').toLowerCase()}@aluno.local`;
         try {
             await apiRegister({ name: nome, email, password: senha });
-            navigate('/Home');
+            // Limpa o token salvo após o cadastro para forçar login
+            clearAuth();
+            alert('Cadastro realizado com sucesso! Faça login para continuar.');
+            navigate('/login');
         } catch (err) {
             alert(err.message);
         }

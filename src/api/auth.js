@@ -24,6 +24,18 @@ export async function apiLogin({ email, password }) {
   return data;
 }
 
+export async function apiGoogleLogin({ credential }) {
+  const res = await fetch(`${API_BASE_URL}/api/auth/google`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ credential })
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data?.error || 'Erro ao autenticar com o Google');
+  persistAuth(data);
+  return data;
+}
+
 export function persistAuth({ token, user }) {
   if (token) localStorage.setItem('auth_token', token);
   if (user) localStorage.setItem('auth_user', JSON.stringify(user));

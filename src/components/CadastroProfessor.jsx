@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaGoogle } from 'react-icons/fa';
-import { apiRegister } from '../api/auth';
+import { apiRegister, clearAuth } from '../api/auth';
 
 // Assets
 import logo from '../assets/logo.png';
@@ -37,10 +37,15 @@ export default function CadastroProfessor() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!email) return alert('Informe o e-mail corporativo');
+        if (!senha) return alert('Informe uma senha');
         try {
             // usando email + senha; nome do professor como name
             await apiRegister({ name: nome || 'Professor', email, password: senha });
-            navigate('/Home');
+            // Limpa o token salvo após o cadastro para forçar login
+            clearAuth();
+            alert('Cadastro realizado com sucesso! Faça login para continuar.');
+            navigate('/login');
         } catch (err) {
             alert(err.message);
         }
