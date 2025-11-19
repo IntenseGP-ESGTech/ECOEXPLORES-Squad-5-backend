@@ -42,6 +42,16 @@ const swaggerOptions = {
           bearerFormat: 'JWT',
         },
       },
+      responses: {
+        UnauthorizedError: {
+          description: "Token inválido ou ausente",
+          content: {
+            "application/json": {
+              example: { error: "Invalid token" },
+            },
+          },
+        },
+      },
     },
   },
   apis: ['./server/index.js'],

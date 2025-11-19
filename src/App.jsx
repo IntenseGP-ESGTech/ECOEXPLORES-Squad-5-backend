@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 // Componentes de roteamento do React Router DOM v6
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';

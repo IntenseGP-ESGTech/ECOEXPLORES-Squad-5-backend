@@ -6,5 +6,29 @@
     "passwordHash": "$2a$10$1D9ofoJVpza1bcQH.ebfDeFFrKTJcZXx6LZQaWy5EYfbCDBJO9tqy",
     "createdAt": "2025-10-28T13:34:50.960Z",
     "updatedAt": "2025-10-28T13:34:50.960Z"
+  },
+  {
+    "id": "d2a79edf-24da-4c63-ba55-663e4e22bca3",
+    "name": "Bruno",
+    "email": "brunokami1209@gmail.com",
+    "passwordHash": "$2a$10$I/9v6gkkkuDMN5ZtqvFdY.yjtMhbEEXzclCVJu9YcArX7Z7RH1aHG",
+    "createdAt": "2025-10-29T20:50:18.788Z",
+    "updatedAt": "2025-10-29T20:50:18.788Z"
+  },
+  {
+    "id": "9e8b4b8f-b361-45e1-abe3-ced7a4cd2620",
+    "name": "João Silva",
+    "email": "joao@example.com",
+    "passwordHash": "$2a$10$JNMrYm4GFvlIjmpRFN7SKufmkvse.OGva0NLPgZIydRimDuBM8bB.",
+    "createdAt": "2025-11-05T20:57:12.675Z",
+    "updatedAt": "2025-11-05T20:57:12.675Z"
+  },
+  {
+    "id": "12990088-7609-4a73-b169-3f0263ec96f0",
+    "name": "Bruno",
+    "email": "bruno1134@gmail.com",
+    "passwordHash": "$2a$10$pR7IVq4zR2VQidjmi.vOye3FXAhY.UWEa75OBYIgwLIw55wDYZXyq",
+    "createdAt": "2025-11-05T21:29:36.254Z",
+    "updatedAt": "2025-11-05T21:29:36.254Z"
   }
 ]
