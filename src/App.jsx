@@ -11,6 +11,8 @@ import  CadastroProfessor  from './components/CadastroProfessor'; // Formulário
 import CadastroResponsavel  from './components/CadastroResponsavel'; // Formulário responsável
 import  CadastroAluno  from './components/CadastroAluno';      // Formulário aluno
 import  Home  from './components/Home';                        // Dashboard principal
+import LearningPathsList from './components/LearningPathsList'; // Listagem de trilhas
+import LearningPathForm from './components/LearningPathForm';  // Formulário de trilha
 
 
 
@@ -33,11 +35,10 @@ function App() {
            <Route path="/cadastro/professor" element={<CadastroProfessor />} />
            <Route path="/cadastro/responsavel" element={<CadastroResponsavel />} />
            <Route path="/cadastro/aluno" element={<CadastroAluno />} />
-           <Route path="/home" element={<Home />} /> 
-          
-           
-          
-          
+           <Route path="/home" element={<Home />} />
+           <Route path="/learning-paths" element={<LearningPathsList />} />
+           <Route path="/learning-paths/new" element={<LearningPathForm />} />
+           <Route path="/learning-paths/:id/edit" element={<LearningPathForm />} />
          
       </Routes>
     </Router>

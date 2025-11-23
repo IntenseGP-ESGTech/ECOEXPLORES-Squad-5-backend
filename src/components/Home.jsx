@@ -33,6 +33,10 @@ export default function Home() {
     navigate('/login', { replace: true });
   };
 
+  const handlePlay = () => {
+    navigate('/learning-paths');
+  };
+
     return (
         <div className="container">
             {/* Background Elements */}
@@ -47,7 +51,7 @@ export default function Home() {
             </div>
             
             {/* Main Action Button */}
-            <div className="playIcon" role="button" aria-label="Play Content">
+            <div className="playIcon" role="button" aria-label="Play Content" onClick={handlePlay} style={{ cursor: 'pointer' }}>
                 <FaPlay size={24} />
             </div>
             

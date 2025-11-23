@@ -9,6 +9,14 @@ import swaggerJsdoc from 'swagger-jsdoc';
 import { OAuth2Client } from 'google-auth-library';
 import { pool, ensureDatabase } from './db.js';
 import { toPublicUser } from './utils/storage.js';
+import {
+  getAllLearningPaths,
+  getLearningPathById,
+  getLearningPathByCode,
+  createLearningPath,
+  updateLearningPath,
+  deleteLearningPath,
+} from './utils/learningPaths.js';
 
 dotenv.config();
 
@@ -376,6 +384,286 @@ app.get('/api/auth/me', authMiddleware, async (req, res) => {
   const user = await findUserById(req.userId);
   if (!user) return res.status(404).json({ error: 'User not found' });
   res.json({ user: toPublicUser(user) });
+});
+
+// ==================== ROTAS DE TRILHAS DE APRENDIZADO ====================
+
+/**
+ * @swagger
+ * /api/learning-paths:
+ *   get:
+ *     summary: Listar todas as trilhas de aprendizado
+ *     tags: [Learning Paths]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: status
+ *         schema:
+ *           type: string
+ *           enum: [Rascunho, Publicada]
+ *         description: Filtrar por status
+ *       - in: query
+ *         name: targetAudience
+ *         schema:
+ *           type: string
+ *         description: Filtrar por público-alvo
+ *     responses:
+ *       200:
+ *         description: Lista de trilhas
+ *       401:
+ *         description: Token inválido ou ausente
+ */
+app.get('/api/learning-paths', authMiddleware, async (req, res) => {
+  try {
+    const filters = {
+      status: req.query.status,
+      creatorId: req.query.creatorId,
+      targetAudience: req.query.targetAudience,
+    };
+    const paths = await getAllLearningPaths(filters);
+    res.json({ paths });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error fetching learning paths:', error);
+    res.status(500).json({ error: 'Erro ao buscar trilhas' });
+  }
+});
+
+/**
+ * @swagger
+ * /api/learning-paths/{id}:
+ *   get:
+ *     summary: Obter trilha por ID
+ *     tags: [Learning Paths]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Trilha encontrada
+ *       404:
+ *         description: Trilha não encontrada
+ */
+app.get('/api/learning-paths/:id', authMiddleware, async (req, res) => {
+  try {
+    const path = await getLearningPathById(req.params.id);
+    if (!path) {
+      return res.status(404).json({ error: 'Trilha não encontrada' });
+    }
+    res.json({ path });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error fetching learning path:', error);
+    res.status(500).json({ error: 'Erro ao buscar trilha' });
+  }
+});
+
+/**
+ * @swagger
+ * /api/learning-paths:
+ *   post:
+ *     summary: Criar nova trilha de aprendizado
+ *     tags: [Learning Paths]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - code
+ *               - name
+ *               - creatorId
+ *             properties:
+ *               code:
+ *                 type: string
+ *                 example: TRL-E01
+ *               name:
+ *                 type: string
+ *                 example: Aventura Sustentável I
+ *               description:
+ *                 type: string
+ *               targetAudience:
+ *                 type: string
+ *                 example: Fundamental II
+ *               status:
+ *                 type: string
+ *                 enum: [Rascunho, Publicada]
+ *                 default: Rascunho
+ *               content:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *     responses:
+ *       201:
+ *         description: Trilha criada com sucesso
+ *       400:
+ *         description: Dados inválidos
+ *       409:
+ *         description: Código já existe
+ */
+app.post('/api/learning-paths', authMiddleware, async (req, res) => {
+  try {
+    const { code, name, description, targetAudience, status, content } = req.body || {};
+    const creatorId = req.userId;
+
+    if (!code || !name) {
+      return res.status(400).json({ error: 'Código e nome são obrigatórios' });
+    }
+
+    const existing = await getLearningPathByCode(code);
+    if (existing) {
+      return res.status(409).json({ error: 'Código da trilha já existe' });
+    }
+
+    const newPath = await createLearningPath({
+      code,
+      name,
+      description,
+      targetAudience,
+      status: status || 'Rascunho',
+      creatorId,
+      content: content || [],
+    });
+
+    res.status(201).json({ path: newPath });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error creating learning path:', error);
+    if (error.code === '23505') {
+      return res.status(409).json({ error: 'Código da trilha já existe' });
+    }
+    res.status(500).json({ error: 'Erro ao criar trilha' });
+  }
+});
+
+/**
+ * @swagger
+ * /api/learning-paths/{id}:
+ *   put:
+ *     summary: Atualizar trilha de aprendizado
+ *     tags: [Learning Paths]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               code:
+ *                 type: string
+ *               name:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               targetAudience:
+ *                 type: string
+ *               status:
+ *                 type: string
+ *                 enum: [Rascunho, Publicada]
+ *               content:
+ *                 type: array
+ *     responses:
+ *       200:
+ *         description: Trilha atualizada
+ *       404:
+ *         description: Trilha não encontrada
+ *       403:
+ *         description: Sem permissão para editar
+ */
+app.put('/api/learning-paths/:id', authMiddleware, async (req, res) => {
+  try {
+    const existing = await getLearningPathById(req.params.id);
+    if (!existing) {
+      return res.status(404).json({ error: 'Trilha não encontrada' });
+    }
+
+    if (existing.creatorId !== req.userId) {
+      return res.status(403).json({ error: 'Você não tem permissão para editar esta trilha' });
+    }
+
+    const { code, name, description, targetAudience, status, content } = req.body || {};
+
+    if (code && code !== existing.code) {
+      const codeExists = await getLearningPathByCode(code);
+      if (codeExists) {
+        return res.status(409).json({ error: 'Código da trilha já existe' });
+      }
+    }
+
+    const updated = await updateLearningPath(req.params.id, {
+      code,
+      name,
+      description,
+      targetAudience,
+      status,
+      content,
+    });
+
+    res.json({ path: updated });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error updating learning path:', error);
+    res.status(500).json({ error: 'Erro ao atualizar trilha' });
+  }
+});
+
+/**
+ * @swagger
+ * /api/learning-paths/{id}:
+ *   delete:
+ *     summary: Deletar trilha de aprendizado
+ *     tags: [Learning Paths]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Trilha deletada
+ *       404:
+ *         description: Trilha não encontrada
+ *       403:
+ *         description: Sem permissão para deletar
+ */
+app.delete('/api/learning-paths/:id', authMiddleware, async (req, res) => {
+  try {
+    const existing = await getLearningPathById(req.params.id);
+    if (!existing) {
+      return res.status(404).json({ error: 'Trilha não encontrada' });
+    }
+
+    if (existing.creatorId !== req.userId) {
+      return res.status(403).json({ error: 'Você não tem permissão para deletar esta trilha' });
+    }
+
+    await deleteLearningPath(req.params.id);
+    res.json({ message: 'Trilha deletada com sucesso' });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error deleting learning path:', error);
+    res.status(500).json({ error: 'Erro ao deletar trilha' });
+  }
 });
 
 ensureAppReady()

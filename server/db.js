@@ -42,6 +42,30 @@ export async function ensureDatabase() {
       ON users (provider, provider_id)
       WHERE provider_id IS NOT NULL
   `);
+
+  // Tabela de Trilhas de Aprendizado
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS learning_paths (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      code TEXT UNIQUE NOT NULL,
+      name TEXT NOT NULL,
+      description TEXT,
+      target_audience TEXT,
+      status TEXT NOT NULL DEFAULT 'Rascunho' CHECK (status IN ('Rascunho', 'Publicada')),
+      creator_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      content JSONB DEFAULT '[]'::jsonb,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+
+  await pool.query(`
+    CREATE INDEX IF NOT EXISTS learning_paths_creator_id_idx ON learning_paths(creator_id)
+  `);
+
+  await pool.query(`
+    CREATE INDEX IF NOT EXISTS learning_paths_status_idx ON learning_paths(status)
+  `);
 }
 
 
